@@ -9,7 +9,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/STXNES/linux-enterprise-infrastructure/actions"><img src="https://img.shields.io/badge/CI-Passing-10b981?style=for-the-badge&logo=githubactions&logoColor=white" alt="CI"></a>
+  <a href="https://github.com/STXNES/Linux-Enterprise-Infrastructure/actions"><img src="https://img.shields.io/badge/CI-Passing-10b981?style=for-the-badge&logo=githubactions&logoColor=white" alt="CI"></a>
   <a href="https://www.cisecurity.org/benchmark"><img src="https://img.shields.io/badge/CIS%20Benchmark-Level%202%20Compliant-10b981?style=for-the-badge&logo=securityscorecard&logoColor=white" alt="CIS"></a>
   <a href="https://www.debian.org/"><img src="https://img.shields.io/badge/Debian-12%20Bookworm-A81D33?style=for-the-badge&logo=debian&logoColor=white" alt="Debian"></a>
   <a href="https://nginx.org/"><img src="https://img.shields.io/badge/Nginx-TLS%201.3%20%7C%20HTTP%2F2-009639?style=for-the-badge&logo=nginx&logoColor=white" alt="Nginx"></a>
@@ -191,7 +191,7 @@ Pipeline de ejecución desatendida programado diariamente a las **02:00:00 UTC**
 ## 📂 Estructura del Repositorio
 
 ```text
-linux-enterprise-infrastructure/
+Linux-Enterprise-Infrastructure/
 ├── .github/
 │   └── workflows/
 │       └── lint-and-audit.yml             # CI: Validación ShellCheck y sintaxis systemd
@@ -249,8 +249,8 @@ linux-enterprise-infrastructure/
 
 ```bash
 # 1. Clonar el repositorio en el nodo objetivo
-git clone https://github.com/STXNES/linux-enterprise-infrastructure.git
-cd linux-enterprise-infrastructure
+git clone https://github.com/STXNES/Linux-Enterprise-Infrastructure.git
+cd Linux-Enterprise-Infrastructure
 
 # 2. Asignar permisos de ejecución a los scripts
 chmod +x scripts/*.sh configs/ufw/ufw-rules.sh
