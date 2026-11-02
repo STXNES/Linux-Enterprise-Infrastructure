@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 520" width="100%" height="100%">
+  <defs>
+    <linearGradient id="lx-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#060d0c" />
+      <stop offset="100%" stop-color="#0d1b18" />
+    </linearGradient>
+    <pattern id="lx-grid" width="22" height="22" patternUnits="userSpaceOnUse">
+      <path d="M 22 0 L 0 0 0 22" fill="none" stroke="#10b981" stroke-width="0.5" opacity="0.08" />
+    </pattern>
+  </defs>
+
+  <rect width="900" height="520" fill="url(#lx-bg)" />
+  <rect width="900" height="520" fill="url(#lx-grid)" />
+
+  <!-- Outer Window Frame -->
+  <rect x="25" y="20" width="850" height="480" rx="14" fill="#081412" stroke="#143c32" stroke-width="1.5" />
+  
+  <!-- Terminal Header Bar -->
+  <rect x="25" y="20" width="850" height="44" rx="14" fill="#0d241f" />
+  <circle cx="52" cy="42" r="5.5" fill="#ef4444" opacity="0.8" />
+  <circle cx="72" cy="42" r="5.5" fill="#eab308" opacity="0.8" />
+  <circle cx="92" cy="42" r="5.5" fill="#22c55e" opacity="0.8" />
+  
+  <text x="125" y="46" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="600" fill="#9ca3af">axell@infra-srv01:~ (Debian 12 Bookworm · Kernel 6.1.0-hardened · CIS Benchmark Level 2)</text>
+  
+  <rect x="740" y="32" width="115" height="22" rx="6" fill="#10b981" fill-opacity="0.2" stroke="#10b981" stroke-opacity="0.5" />
+  <circle cx="754" cy="43" r="3.5" fill="#22c55e" />
+  <text x="765" y="47" font-family="'JetBrains Mono', monospace" font-size="10" font-weight="bold" fill="#34d399">HARDENED · SECURE</text>
+
+  <!-- Left: System Daemon & Security Monitoring Cards -->
+  <g transform="translate(45, 80)">
+    <rect width="320" height="400" rx="10" fill="#0b1c18" stroke="#164539" />
+    <rect width="320" height="34" rx="10" fill="#102b24" />
+    <text x="16" y="22" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="bold" fill="#34d399">SYSTEMD DAEMONS &amp; SECURITY JAILS</text>
+
+    <!-- Service 1: Nginx -->
+    <g transform="translate(16, 50)">
+      <rect width="288" height="58" rx="7" fill="#081714" stroke="#10b981" stroke-opacity="0.4" />
+      <circle cx="18" cy="20" r="4.5" fill="#10b981" />
+      <text x="32" y="23" font-family="'JetBrains Mono', monospace" font-size="10.5" font-weight="bold" fill="#f8fafc">nginx.service</text>
+      <text x="210" y="23" font-family="'JetBrains Mono', monospace" font-size="9" fill="#34d399">RUNNING</text>
+      <text x="32" y="42" font-family="'JetBrains Mono', monospace" font-size="8.5" fill="#94a3b8">Reverse Proxy · TLS 1.3 · HSTS · HTTP/2</text>
+    </g>
+
+    <!-- Service 2: SSHD Hardened -->
+    <g transform="translate(16, 116)">
+      <rect width="288" height="58" rx="7" fill="#081714" stroke="#10b981" stroke-opacity="0.4" />
+      <circle cx="18" cy="20" r="4.5" fill="#10b981" />
+      <text x="32" y="23" font-family="'JetBrains Mono', monospace" font-size="10.5" font-weight="bold" fill="#f8fafc">sshd.service</text>
+      <text x="210" y="23" font-family="'JetBrains Mono', monospace" font-size="9" fill="#34d399">RUNNING</text>
+      <text x="32" y="42" font-family="'JetBrains Mono', monospace" font-size="8.5" fill="#94a3b8">Port 2222 · ed25519-only · Root Login No</text>
+    </g>
+
+    <!-- Service 3: Fail2ban -->
+    <g transform="translate(16, 182)">
+      <rect width="288" height="58" rx="7" fill="#081714" stroke="#10b981" stroke-opacity="0.4" />
+      <circle cx="18" cy="20" r="4.5" fill="#10b981" />
+      <text x="32" y="23" font-family="'JetBrains Mono', monospace" font-size="10.5" font-weight="bold" fill="#f8fafc">fail2ban.service</text>
+      <text x="210" y="23" font-family="'JetBrains Mono', monospace" font-size="9" fill="#34d399">ACTIVE</text>
+      <text x="32" y="42" font-family="'JetBrains Mono', monospace" font-size="8.5" fill="#94a3b8">3 Jails: sshd, nginx-req, recidive</text>
+    </g>
+
+    <!-- UFW Firewall Rules Matrix -->
+    <g transform="translate(16, 252)">
+      <rect width="288" height="132" rx="7" fill="#061210" stroke="#164539" />
+      <text x="12" y="20" font-family="'JetBrains Mono', monospace" font-size="9.5" font-weight="bold" fill="#34d399">FIREWALL STATE (UFW)</text>
+      <text x="12" y="38" font-family="'JetBrains Mono', monospace" font-size="8.5" fill="#f87171">• Default Policy: DENY (incoming) / ALLOW (out)</text>
+      <text x="12" y="56" font-family="'JetBrains Mono', monospace" font-size="8.5" fill="#34d399">✓ 2222/tcp (SSH)   ALLOW (Rate limited)</text>
+      <text x="12" y="74" font-family="'JetBrains Mono', monospace" font-size="8.5" fill="#34d399">✓ 443/tcp (HTTPS)  ALLOW (TLS 1.3 only)</text>
+      <text x="12" y="92" font-family="'JetBrains Mono', monospace" font-size="8.5" fill="#94a3b8">✓ 80/tcp (HTTP)    ALLOW (301 Permanent SSL Redirect)</text>
+      <text x="12" y="114" font-family="'JetBrains Mono', monospace" font-size="8.5" fill="#38bdf8">Sysctl: tcp_syncookies=1, rp_filter=1</text>
+    </g>
+  </g>
+
+  <!-- Right: Real Bash Automation & Backup Execution Terminal -->
+  <g transform="translate(385, 80)">
+    <rect width="470" height="400" rx="10" fill="#040b0a" stroke="#164539" />
+    <rect width="470" height="34" rx="10" fill="#081714" />
+    <text x="16" y="22" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="bold" fill="#34d399">bash // /usr/local/bin/infra-backup.sh --automated --gpg</text>
+
+    <!-- Terminal Command Feed -->
+    <g transform="translate(18, 52)">
+      <text x="0" y="14" font-family="'JetBrains Mono', monospace" font-size="10.5" fill="#34d399">axell@infra-srv01:~$ <tspan fill="#ffffff">sudo ./infra-backup.sh --full --verify</tspan></text>
+      
+      <text x="0" y="38" font-family="'JetBrains Mono', monospace" font-size="9.5" fill="#94a3b8">[2026-11-02 02:00:01] [INFO] Starting enterprise backup routine...</text>
+      <text x="0" y="56" font-family="'JetBrains Mono', monospace" font-size="9.5" fill="#94a3b8">[2026-11-02 02:00:02] [FS] Creating LVM snapshot: /dev/vg0/snap_data</text>
+      <text x="0" y="74" font-family="'JetBrains Mono', monospace" font-size="9.5" fill="#94a3b8">[2026-11-02 02:00:05] [TAR] Compressing with zstd level 19: /tmp/srv01_2026.tar.zst</text>
+      <text x="0" y="92" font-family="'JetBrains Mono', monospace" font-size="9.5" fill="#38bdf8">[2026-11-02 02:00:18] [GPG] Asymmetric encryption OK (Recipient: STXNES-INFRA-KEY)</text>
+      <text x="0" y="110" font-family="'JetBrains Mono', monospace" font-size="9.5" fill="#94a3b8">[2026-11-02 02:00:24] [RSYNC] Replicating encrypted payload to offsite storage: 100%</text>
+      <text x="0" y="128" font-family="'JetBrains Mono', monospace" font-size="9.5" font-weight="bold" fill="#34d399">[2026-11-02 02:00:26] [SUCCESS] SHA256 integrity hash: 9f8a41c2b3e8... logged to syslog.</text>
+
+      <line x1="0" y1="144" x2="434" y2="144" stroke="#164539" stroke-dasharray="4 2" />
+
+      <text x="0" y="168" font-family="'JetBrains Mono', monospace" font-size="10.5" fill="#34d399">axell@infra-srv01:~$ <tspan fill="#ffffff">systemctl is-active nginx sshd fail2ban</tspan></text>
+      <text x="0" y="186" font-family="'JetBrains Mono', monospace" font-size="9.5" fill="#34d399">active</text>
+      <text x="0" y="202" font-family="'JetBrains Mono', monospace" font-size="9.5" fill="#34d399">active</text>
+      <text x="0" y="218" font-family="'JetBrains Mono', monospace" font-size="9.5" fill="#34d399">active</text>
+
+      <text x="0" y="246" font-family="'JetBrains Mono', monospace" font-size="10.5" fill="#34d399">axell@infra-srv01:~$ <tspan fill="#ffffff">fail2ban-client status sshd</tspan></text>
+      <text x="0" y="264" font-family="'JetBrains Mono', monospace" font-size="9.5" fill="#94a3b8">|- Filter: Currently failed: 0 | Total failed: 184</text>
+      <text x="0" y="280" font-family="'JetBrains Mono', monospace" font-size="9.5" fill="#f87171">`- Actions: Currently banned: 4 | Banned IP list: [198.51.100.24, 203.0.113.88...]</text>
+
+      <text x="0" y="312" font-family="'JetBrains Mono', monospace" font-size="10.5" fill="#34d399">axell@infra-srv01:~$ <tspan fill="#34d399" class="animate-pulse">_</tspan></text>
+    </g>
+  </g>
+</svg>

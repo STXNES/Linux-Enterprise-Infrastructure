@@ -1,0 +1,30 @@
+[Unit]
+Description=Automated Enterprise Linux Backup Routine (Zstandard + GPG)
+Documentation=https://github.com/STXNES/linux-enterprise-infrastructure
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/infra-backup.sh --automated --gpg --verify
+User=root
+Group=root
+
+# Process Sandboxing & Least Privilege Isolation
+ProtectSystem=full
+ProtectHome=read-only
+PrivateTmp=true
+ProtectKernelTunables=true
+ProtectControlGroups=true
+NoNewPrivileges=true
+CapabilityBoundingSet=CAP_DAC_READ_SEARCH CAP_SYS_ADMIN CAP_FOWNER
+
+# Resource & Scheduling Limits
+Nice=15
+IOSchedulingClass=idle
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=infra-backup
+
+[Install]
+WantedBy=multi-user.target

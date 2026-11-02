@@ -1,0 +1,66 @@
+[Unit]
+Description=Enterprise Hardened Production Service Blueprint
+Documentation=https://github.com/STXNES/linux-enterprise-infrastructure
+After=network.target
+
+[Service]
+Type=simple
+User=appdaemon
+Group=appdaemon
+WorkingDirectory=/opt/enterprise-app
+ExecStart=/usr/bin/node /opt/enterprise-app/server.js
+Restart=on-failure
+RestartSec=5s
+
+# ------------------------------------------------------------------------------
+# CIS / systemd Sandboxing Directives
+# ------------------------------------------------------------------------------
+# Mount /usr, /boot, and /etc read-only for processes invoked by this unit
+ProtectSystem=full
+
+# Protect user home directories from access
+ProtectHome=true
+
+# Disallow privilege escalation (prevents setuid/setgid execution)
+NoNewPrivileges=true
+
+# Private /tmp and /var/tmp namespace
+PrivateTmp=true
+
+# Provide empty /dev with only basic pseudo-devices (null, zero, random)
+PrivateDevices=true
+
+# Prevent modification of kernel tunables (/proc/sys, /sys)
+ProtectKernelTunables=true
+
+# Prevent loading or unloading of kernel modules
+ProtectKernelModules=true
+
+# Prevent changes to control groups (/sys/fs/cgroup)
+ProtectControlGroups=true
+
+# Restrict network address families to standard IPv4/IPv6 and UNIX sockets
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+
+# Prevent real-time scheduling priority abuse
+RestrictRealtime=true
+
+# Restrict memory write/execute mapping (prevents W^X memory exploits)
+MemoryDenyWriteExecute=true
+
+# Restrict system calls (whitelist standard service calls)
+SystemCallArchitectures=native
+SystemCallFilter=@system-service
+SystemCallFilter=~@privileged @resources
+
+# Restrict namespace creation
+RestrictNamespaces=true
+
+# Sandboxing Socket Path Configuration:
+# Allows read-write access only to explicit communication socket run directory
+RuntimeDirectory=enterprise-app
+RuntimeDirectoryMode=0750
+ReadWritePaths=/var/log/enterprise-app /run/enterprise-app
+
+[Install]
+WantedBy=multi-user.target

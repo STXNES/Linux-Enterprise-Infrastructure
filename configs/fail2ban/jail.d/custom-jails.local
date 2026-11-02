@@ -1,0 +1,55 @@
+# ==============================================================================
+# /etc/fail2ban/jail.d/custom-jails.local
+# Production Intrusion Prevention Jails
+# Author: Axell Rojas (https://github.com/STXNES)
+# ==============================================================================
+
+[DEFAULT]
+# Global default ban settings
+bantime  = 1h
+findtime = 10m
+maxretry = 3
+banaction = ufw
+banaction_allports = ufw
+backend  = systemd
+destemail = axelry2402@gmail.com
+sender = fail2ban@infra-srv01.lan
+mta = sendmail
+action = %(action_mwl)s
+
+# ------------------------------------------------------------------------------
+# 1. SSH Hardened Jail (Custom Port 2222)
+# ------------------------------------------------------------------------------
+[sshd]
+enabled  = true
+port     = 2222
+mode     = aggressive
+filter   = sshd[mode=aggressive]
+logpath  = %(sshd_log)s
+backend  = systemd
+maxretry = 3
+findtime = 10m
+bantime  = 24h
+
+# ------------------------------------------------------------------------------
+# 2. Nginx Request Rate-Limit Jail (Layer 7 Flood Protection)
+# ------------------------------------------------------------------------------
+[nginx-req-limit]
+enabled  = true
+port     = http,https
+filter   = nginx-req-limit
+logpath  = /var/log/nginx/error.log
+maxretry = 5
+findtime = 1m
+bantime  = 2h
+
+# ------------------------------------------------------------------------------
+# 3. Recidive Jail (Long-Term Ban for Chronic Repeat Attackers)
+# ------------------------------------------------------------------------------
+[recidive]
+enabled  = true
+logpath  = /var/log/fail2ban.log
+banaction = %(banaction_allports)s
+bantime  = 1w
+findtime = 1d
+maxretry = 3

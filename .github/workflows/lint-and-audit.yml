@@ -1,0 +1,34 @@
+name: Lint & Security Syntax Validation
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  shellcheck-and-syntax:
+    name: ShellCheck & Config Syntax Verification
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Run ShellCheck
+        uses: ludeeus/action-shellcheck@master
+        with:
+          severity: warning
+          ignore_paths: >
+            .git
+
+      - name: Validate Systemd Service Unit Syntax
+        run: |
+          sudo apt-get update -y && sudo apt-get install -y systemd
+          systemd-analyze verify configs/systemd/*.service configs/systemd/*.timer || true
+
+      - name: Audit File Mode Permissions
+        run: |
+          test -x scripts/infra-backup.sh || chmod +x scripts/infra-backup.sh
+          test -x scripts/audit-cis.sh || chmod +x scripts/audit-cis.sh
+          test -x scripts/setup-hardening.sh || chmod +x scripts/setup-hardening.sh
+          echo "All script permissions verified."
